@@ -567,15 +567,35 @@ From Zyrja z
 Where z.Madhesia = 90.5
 
 
+------Selektimi i Grandeve aktive ku numri i fermereve eshte me i madh se 12-----
+Select *
+from GrandePerFermer
+where NumriFermereve > 12
+
+---------Selektimi i shpalljeve te grandeve ne qytetin Prishtine------------
+Select *
+from Shpallja s
+where s.Vendi_Aplikimit like 'Prishtine'
+
+---------Selektimi i fermereve te cilet vijne prej qytetit Vushtrri ----------
+Select *
+from Fermeri
+where Qyteti like 'Vushtrri'
+
+--------Selektimi i te gjithe punetoreve qe kane kualifikimin Bsc --------
+Select *
+from StafiPuntorve s
+where s.Kualifikimi like 'BSc'
+
 
 ------------8 Queryt E Para Te Thjeshta Me Nga Nje Relacion^^^^^------------
 
 
 ------------8 Queryt E Dyta Te Thjeshta Me Më shume se  nje Relacion vvvvv------------ 
 
-----------------Shfaqni Emrat E Fermerve dhe Numrat e Telefonave te Tyre------------------ 
-Select f.Emri, f.Mbimeri, tf.Nr_Telefonit
-From Fermeri f  JOIN TelefoniFermeri tf ON tf.Fermeri = f.Leternjoftimi
+----------------Shfaqni Emrat E Drejtoreve dhe Numrat e Telefonave te Tyre------------------ 
+Select d.Emri, d.Mbimeri, t.Nr_Telefonit
+From DrejtoriEkzekutiv d  JOIN Telefoni t ON t.Id_Drejtori = d.ID_Drejtori;
 
 ----------------Shfaqni Emrat E Fermerve qe nuk kane  numer te Telefonit te regjistruar------------------
 Select f.Emri, f.Mbimeri, tf.Nr_Telefonit
@@ -591,7 +611,26 @@ Select sp.Emri, sp.Mbimeri, t.Nr_Takimit, t.KohaTakimit
 From StafiPuntorve sp JOIN Takimi_Stafi ts ON sp.ID_Puntori = ts.Stafi JOIN Takimi t ON t.Nr_Takimit = ts.Takimi
 Where ts.Takimi = 10;
 
+-------Shfaqni trajnimet qe jane mbajtur ne datat 2021-06-01 dhe 2021-09-19------
+Select t.Emri,t.Vendi,o.Data
+from  Trajnimi t JOIN Orari o ON t.ID_Trajnimi = o.ID_Trajnimi
+where o.Data like '2021-06-01' or o.Data like '2021-09-19'
 
+-----------Shfaqni Id,emrin,mbiemrin dhe kualifikimin e punetoreve qe punojn ne zyret A dhe OT-----------
+ 
+Select s.ID_Puntori,s.Emri,s.Mbimeri,s.Kualifikimi,z.Kategoria
+from StafiPuntorve s Join Zyrja z ON s.ID_Puntori = z.Puntori
+where z.Kategoria like 'Zyrja A' or z.Kategoria like 'Zyrja OT'
+
+----------Shfaqni emrin, mbiemrin ,kohen e ardhjes te vizitoreve ne seli ne qytetin e Vushtrrise----------
+Select v.Leternjoftimi,v.Emri,v.Mbimeri,v.KohaArdhjes,s.Qyteti
+from Vizitori v  Join Selia s On v.Selia= s.Nr_Identifikues
+where s.Qyteti like 'Vushtrri'
+
+---------------Shfaqni  targat e veturave te llojit BMV te cilat jane ne dispozicion per tu shfrytzuar ne seli-------------
+Select v.Nr_Targave,v.Lloji,s.Emri
+from Vetura v Join Selia s On v.Selia = s.Nr_Identifikues
+where v.Lloji = 'BMV'
 ------------8 Queryt E Dyta Te Thjeshta Me Më shume se  nje Relacion ^^^^^^^------------
 
 
