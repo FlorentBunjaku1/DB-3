@@ -544,24 +544,24 @@ Where Kualifikimi = 'MSc'
 ------------8 Queryt E Para Te Thjeshta Me Nga Nje Relacion vvvvvv------------
 
 
------------Selektimi i Trajnimeve Te Mbajtura Ne Rahovec Dhe  Ne Prishtine------------------
+-----------Selekto Trajnimet e Mbajtura Ne Rahovec Dhe  Ne Prishtine------------------
 Select *
 From Trajnimi t
 Where t.Vendi IN ('Rahovec', 'Prishtine')
 Order By t.Vendi
 
------------Selektimi i Projekteve Me Buxhet me Te lart se 20000 $------------------
+-----------Selekto Projeketet Me Buxhet me Te lart se 20000 $------------------
 Select *
 From Projekti p
 Where p.Buxheti > 20000
 Order By p.Buxheti DESC
 
------------Selektimi i Fermereve Te Gjinise Femrore Duke shfaqur Leternjoftimin , Emri dhe Mbiemrin-------------
+-----------Selekto  Fermeret e Gjinise Femrore Duke shfaqur Leternjoftimin , Emri dhe Mbiemrin-------------
 Select f.Leternjoftimi, f.Emri, f.Mbimeri
 From Fermeri f
 Where f.Gjinia = 'F'
 
------------Selektimi i Zyreve Me Madhesi 90.5 m^2-------------
+-----------Selekto Zyret Me Madhesi 90.5 m^2-------------
 Select *
 From Zyrja z
 Where z.Madhesia = 90.5
@@ -582,16 +582,26 @@ Select f.Emri, f.Mbimeri, tf.Nr_Telefonit
 From Fermeri f  LEFT JOIN TelefoniFermeri tf ON tf.Fermeri = f.Leternjoftimi
 Where tf.Nr_Telefonit is NULL
 
-----------------Shfaqni Pjestaret e Stafit dhe Zyret qe ata i posedojne------------------
+----------------Shfaqni Pjestaret e Stafit Te cilet posedojne zyre me madhesi me te vogel se 90.5 m^2------------------
 Select st.ID_Puntori, st.Emri, st.Mbimeri, z.Nr_Dhomes, z.Madhesia
-From StafiPuntorve st JOIN Zyrja z ON z.Puntori = st.ID_Puntori;
-
+From StafiPuntorve st JOIN Zyrja z ON z.Puntori = st.ID_Puntori
+Where z.Madhesia < 90.5;
 ----------------Shfaqni Puntoret Qe kane mare pjese ne takimin me numer 10--------------
 Select sp.Emri, sp.Mbimeri, t.Nr_Takimit, t.KohaTakimit
 From StafiPuntorve sp JOIN Takimi_Stafi ts ON sp.ID_Puntori = ts.Stafi JOIN Takimi t ON t.Nr_Takimit = ts.Takimi
-Where ts.Takimi = 10
+Where ts.Takimi = 10;
 
 
 ------------8 Queryt E Dyta Te Thjeshta Me Më shume se  nje Relacion ^^^^^^^------------
 
 
+
+------------8 Queryt E Avancuara Me Më shume se  nje Relacion vvvvvvv------------
+
+/*Te shfaqet numri i aplikuesve per secilen shpallje*/
+Select sh.Numri_Shpalljes, sh.Vendi_Aplikimit, count(*) As 'Numri I Aplikuesve'
+From Shpallja sh JOIN Shpallja_Fermeri shf on sh.Numri_Shpalljes = shf.shpallja
+Group By sh.Numri_Shpalljes, sh.Vendi_Aplikimit
+
+
+------------8 Queryt E Avancuara Me Më shume se  nje Relacion  ^^^^^^^------------
