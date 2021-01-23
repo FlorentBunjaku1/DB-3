@@ -649,6 +649,11 @@ From Shpallja_Fermeri shf JOIN Fermeri f ON shf.Fermeri = f.Leternjoftimi
 Group By f.Emri,f.Mbimeri
 Having count(*) = 1
 
+/*Shfaqni madhesin totale te Selive duke u bazuar ne zyret dhe madhesit e trye*/
+Select s.Nr_Identifikues, s.Emri, Convert(varchar,SUM(z.Madhesia))+'m^2' AS 'Madhesia Totale'
+From Selia s JOIN Zyrja z ON s.Nr_Identifikues = z.Selia
+Group By s.Nr_Identifikues, s.Emri
+
 ----------Selekto fermeret te cilet kane nga 2 numra te telefonit-----------
 Select f.Leternjoftimi,f.Emri,f.Mbimeri, count(*)[Double nr.telefonit]
 from Fermeri f Join TelefoniFermeri tf On f.Leternjoftimi = tf.Fermeri
