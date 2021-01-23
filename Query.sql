@@ -643,4 +643,24 @@ From Shpallja sh JOIN Shpallja_Fermeri shf on sh.Numri_Shpalljes = shf.shpallja
 Group By sh.Numri_Shpalljes, sh.Vendi_Aplikimit
 
 
+/*Te Shfaqen Fermeret qe kan aplikuar ne vetem nje shpallje*/
+Select f.Emri,f.Mbimeri , count(*) 'Numri I Shpalljeve'
+From Shpallja_Fermeri shf JOIN Fermeri f ON shf.Fermeri = f.Leternjoftimi
+Group By f.Emri,f.Mbimeri
+Having count(*) = 1
+
+----------Selekto fermeret te cilet kane nga 2 numra te telefonit-----------
+Select f.Leternjoftimi,f.Emri,f.Mbimeri, count(*)[Double nr.telefonit]
+from Fermeri f Join TelefoniFermeri tf On f.Leternjoftimi = tf.Fermeri
+group by f.Leternjoftimi,f.Emri,f.Mbimeri
+having count(*) = 2
+
+-----------Selekto menaxheret e projekteve qe menaxhojn me shume se 2 projekte------------
+Select mp.ID_Puntori,pmd.Projekti, count(*)[Menaxheret me >2 projekte]
+from MenagjeriProjekteve mp Join Projekti_Menagjeri_Drejtori pmd On mp.ID_Puntori= pmd.Menagjeri
+group by mp.ID_Puntori,pmd.Projekti
+having count(*) >2
+
+
+
 ------------8 Queryt E Avancuara Me Më shume se  nje Relacion  ^^^^^^^------------
