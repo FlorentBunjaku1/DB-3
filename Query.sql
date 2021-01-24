@@ -648,11 +648,23 @@ Select f.Emri,f.Mbimeri , count(*) 'Numri I Shpalljeve'
 From Shpallja_Fermeri shf JOIN Fermeri f ON shf.Fermeri = f.Leternjoftimi
 Group By f.Emri,f.Mbimeri
 Having count(*) = 1
-
+ 
 /*Shfaqni madhesin totale te Selive duke u bazuar ne zyret dhe madhesit e trye*/
 Select s.Nr_Identifikues, s.Emri, Convert(varchar,SUM(z.Madhesia))+'m^2' AS 'Madhesia Totale'
 From Selia s JOIN Zyrja z ON s.Nr_Identifikues = z.Selia
 Group By s.Nr_Identifikues, s.Emri
+
+/*Shfaq Vizituesit dhe selit qe i kan vitiztuar per ata vizitues te cilet kane qendruar sa maksimumi i koheve te qendrimit neper seli*/
+WITH max_koha 
+As
+(
+	Select MAX(Datediff(day,v.KohaArdhjes,v.KohaShkuarjes) )AS [max]
+	From Vizitori v
+)
+Select (v.Emri +  ' ' + v.Mbimeri) as [Emri i Vizitorit],s.Emri as [Emri i Selise],Datediff(day,v.KohaArdhjes,v.KohaShkuarjes) as [Koha_e_Qendrimit]
+From Vizitori v, max_koha m, Selia s
+Where (v.Selia = s.Nr_Identifikues ) AND Datediff(day,v.KohaArdhjes,v.KohaShkuarjes) = m.max
+
 
 ----------Selekto fermeret te cilet kane nga 2 numra te telefonit-----------
 Select f.Leternjoftimi,f.Emri,f.Mbimeri, count(*)[Double nr.telefonit]
