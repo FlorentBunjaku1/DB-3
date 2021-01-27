@@ -678,6 +678,80 @@ from MenagjeriProjekteve mp Join Projekti_Menagjeri_Drejtori pmd On mp.ID_Puntor
 group by mp.ID_Puntori,pmd.Projekti
 having count(*) >2
 
+--------------Te shfaqen shpalljet ne qytetin e Prishtines qe menaxhohen nga menaxheri me ID 10003 dhe ka aktivitetin A03---------------
+Select s.Numri_Shpalljes,s.Vendi_Aplikimit,mas.Aktiviteti,mas.Menagjeri
+from Shpallja s Inner Join Menagjeri_Aktiviteti_Shpallja mas On  s.Numri_Shpalljes = mas.Shpallja
+where mas.Menagjeri like '10003' and mas.Aktiviteti like 'A03'
 
+-----------Shafq emrat e punetoreve qe fillojne me A te cilet vozisin vetura te vitit te prodhimit me te larte se viti 2010----------
+Select st.Emri,v.Nr_Targave,v.VitiProdhimit
+from Vetura v   Join StafiPuntorve st  On v.Nr_Targave = st.Vetura
+where v.VitiProdhimit > 2010 and st.Emri like 'A%'
+order by v.VitiProdhimit asc
 
 ------------8 Queryt E Avancuara Me Më shume se  nje Relacion  ^^^^^^^------------
+
+
+------------8 Subquery te thjeshjta------------
+/*Shfaq te takimet ne te cilat nuk eshte ardhur asnje puntor */
+Select *
+From Takimi t
+Where t.Nr_Takimit NOT IN (
+							Select ts.Takimi
+							From Takimi_Stafi ts
+							)
+/*Shfaq Vizitorin i cili ka vizituar i fundit ndonje seli*/
+Select *
+From Vizitori v
+Where v.KohaArdhjes = (Select MAX(KohaArdhjes)
+						 From Vizitori);
+
+/*Te shfaqen Puntoret qe kane marre pjes ne me shume se nje takim*/
+Select *
+From StafiPuntorve s
+Where s.ID_Puntori IN (Select Stafi
+						From Takimi_Stafi 
+						Group By Stafi
+						Having count(*) > 1)
+
+/*Shfaqni Projektin me buxhetin me te ulet*/
+Select *
+From Projekti p
+Where p.Buxheti = (Select MIN(Buxheti)
+					From Projekti);
+
+---- Shfaq drejtorin ekzekutiv i cili  punon ne seline me numer 001 ------
+Select de.Id_Drejtori,de.Emri,de.Mbimeri,s.Nr_Identifikues,de.Selia
+from Selia s JOIN  DrejtoriEkzekutiv de ON s.Nr_Identifikues = de.Selia
+where de.Selia = (Select s.Nr_Identifikues 
+from Selia s
+where s.Nr_Identifikues = 001 
+)
+
+--------Shfaq te gjithe fermeret ku zip-kodi i tyre eshte 42000--------
+Select *
+from Fermeri f
+where f.Leternjoftimi IN (Select f.Leternjoftimi
+from Fermeri f
+where f.ZipKodi = 42000)
+
+--------Shfaq te gjitha projektet me buxhet mbi 3000 euro ku emri i donatorit  eshte "Besfort"-------
+Select *
+from Projekti p
+where p.Nr_Projektit In (Select p.Nr_Projektit
+from Projekti p
+where p.Buxheti >3000 and p.Emri_Donatorit like 'Besfort')
+
+---------Shfaq veturat qe numri i ulesve te tyre eshte >= se 4-------
+Select v.Nr_Targave,v.Lloji,v.NumriUlseve
+from Vetura v
+where v.NumriUlseve In (Select v.NumriUlseve
+from Vetura v
+where v.NumriUlseve >=4)
+
+---------Shfaq veturat  ku servisimi i tyre eshte bere mes datave 2018-05-30 dhe 2020-09-25-------
+Select v.Nr_Targave,v.Lloji,v.DataServisimit
+from Vetura v
+where v.DataServisimit In (Select v.DataServisimit
+from Vetura v
+where v.DataServisimit between '2018-05-30' and '2020-09-25' )
