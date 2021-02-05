@@ -885,6 +885,26 @@ End
 
 Exec spNumriFermereveSipasQyteteve 'Vushtrri'
 
+/*SP per te shfaqur Fermeret dhe treguar nese ata kane nje me shum apo skan numer fare*/
+Create View numratTelefonaveFermerve
+AS
+(
+	Select DISTINCT f.Leternjoftimi,f.emri,f.Mbimeri,count(tf.Nr_Telefonit) as [Numrat]
+	From Fermeri f  LEFT JOIN TelefoniFermeri tf ON tf.Fermeri = f.Leternjoftimi
+	Group By f.Leternjoftimi,f.emri,f.Mbimeri
+);
+Create Proc spNumratFermereve
+	@fid int ,
+	@nrTelit int = 0
+As
+Begin
+	Select DISTINCT nf.emri, nf.Mbimeri, Nr=(CASE nf.Numrat
+											   WHEN 0 THEN 'Fermeri nuk ka asnje numer telefoni'
+											   WHEN 1 THEN 'Fermeri ka nje numer te telefonit'
+											   ELSE 'Fermeri ka me shume se nje numer te telefonit' END)
+	From numratTelefonaveFermerve nf
+	Where  nf.Leternjoftimi = @fid
+End
 
-
+spNumratFermereve '1234567890';
 -----------Procedurat e Ruajtura---------------------
