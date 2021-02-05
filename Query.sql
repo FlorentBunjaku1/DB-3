@@ -277,17 +277,19 @@ Insert into Zyrja(Kategoria,Puntori,Selia)
 values('Zyrja HF','10019','001')
 Insert into Zyrja(Kategoria,Puntori,Selia)
 values('Zyrja MF','10020','001')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja D1','95.0','001')
 
-insert into DrejtoriEkzekutiv values('20100','Edmond','Hyseni','Mitrovice','Ardhmeria','40000','1','001')
-insert into DrejtoriEkzekutiv values('20200','ALbin','Zeka','Prishtine','7 Shtatori','42000','2','002')
-insert into DrejtoriEkzekutiv values('20300','Jeton','Krasniqi','Gjakove','1 Tetori','30000','3','003')
-insert into DrejtoriEkzekutiv values('20400','Arlinda','Gashi','Prizren','Sami Frasheri','22000','4','004')
-insert into DrejtoriEkzekutiv values('20500','Egzone','Berisha','Gjilan','Ali Kelmendi','29000','5','005')
-insert into DrejtoriEkzekutiv values('20600','Ekrem','Ibishi','Ferizaj','Ferhat Draga','50000','6','006')
-insert into DrejtoriEkzekutiv values('20700','Burim','Gjaka','Istog','Mustafe Shyti','46000','7','007')
-insert into DrejtoriEkzekutiv values('20800','Naser','Bajrami','Peje','Bahri Kuqi','23000','8','008')
-insert into DrejtoriEkzekutiv values('20900','Enver','Basholli','Lipijan','Atdheu','24000','9','009')
-insert into DrejtoriEkzekutiv values('21000','Agron','Gashi','Vushtrri','Deshmoret e Kombit','42000','10','010')
+insert into DrejtoriEkzekutiv values('20100','Edmond','Hyseni','Mitrovice','Ardhmeria','40000','21','001')
+insert into DrejtoriEkzekutiv values('20200','ALbin','Zeka','Prishtine','7 Shtatori','42000','23','002')
+insert into DrejtoriEkzekutiv values('20300','Jeton','Krasniqi','Gjakove','1 Tetori','30000','24','003')
+insert into DrejtoriEkzekutiv values('20400','Arlinda','Gashi','Prizren','Sami Frasheri','22000','25','004')
+insert into DrejtoriEkzekutiv values('20500','Egzone','Berisha','Gjilan','Ali Kelmendi','29000','26','005')
+insert into DrejtoriEkzekutiv values('20600','Ekrem','Ibishi','Ferizaj','Ferhat Draga','50000','27','006')
+insert into DrejtoriEkzekutiv values('20700','Burim','Gjaka','Istog','Mustafe Shyti','46000','28','007')
+insert into DrejtoriEkzekutiv values('20800','Naser','Bajrami','Peje','Bahri Kuqi','23000','29','008')
+insert into DrejtoriEkzekutiv values('20900','Enver','Basholli','Lipijan','Atdheu','24000','30','009')
+insert into DrejtoriEkzekutiv values('21000','Agron','Gashi','Vushtrri','Deshmoret e Kombit','42000','31','010')
 
 insert into Telefoni values('20100','044628833')
 insert into Telefoni values('20200','044628834')
@@ -530,6 +532,17 @@ Insert Into Menagjeri_Zyrtari_SHF Values('10018','10008','58','1234567900')
 Insert Into Menagjeri_Zyrtari_SHF Values('10019','10009','59','1234567810')
 Insert Into Menagjeri_Zyrtari_SHF Values('10020','10010','60','1234567820')
 
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A01','10001','51')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A02','10002','52')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A03','10003','53')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A04','10004','54')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A05','10005','55')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A06','10006','56')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A07','10007','57')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A08','10008','58')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A09','10009','59')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A10','10010','60')
+
 Delete Vetura 
 Where Selia = 001
 
@@ -540,28 +553,27 @@ Update StafiPuntorve
 set Kualifikimi = 'BSc'
 Where Kualifikimi = 'MSc'
 
+------------8 Queryt E Para Te Thjeshta Me Nga Nje Relacion vvvvvv*/
 
-------------8 Queryt E Para Te Thjeshta Me Nga Nje Relacion vvvvvv------------
 
-
------------Selekto Trajnimet e Mbajtura Ne Rahovec Dhe  Ne Prishtine------------------
+/*Selekto Trajnimet e Mbajtura Ne Rahovec Dhe  Ne Prishtine*/
 Select *
 From Trajnimi t
 Where t.Vendi IN ('Rahovec', 'Prishtine')
 Order By t.Vendi
 
------------Selekto Projeketet Me Buxhet me Te lart se 20000 $------------------
+/*Selekto Projeketet Me Buxhet me Te lart se 20000 $*/
 Select *
 From Projekti p
 Where p.Buxheti > 20000
 Order By p.Buxheti DESC
 
------------Selekto  Fermeret e Gjinise Femrore Duke shfaqur Leternjoftimin , Emri dhe Mbiemrin-------------
+/*Selekto  Fermeret e Gjinise Femrore Duke shfaqur Leternjoftimin , Emri dhe Mbiemrin*/
 Select f.Leternjoftimi, f.Emri, f.Mbimeri
 From Fermeri f
 Where f.Gjinia = 'F'
 
------------Selekto Zyret Me Madhesi 90.5 m^2-------------
+/*Selekto Zyret Me Madhesi 90.5 m^2*/
 Select *
 From Zyrja z
 Where z.Madhesia = 90.5
@@ -591,22 +603,23 @@ where s.Kualifikimi like 'BSc'
 ------------8 Queryt E Para Te Thjeshta Me Nga Nje Relacion^^^^^------------
 
 
-------------8 Queryt E Dyta Te Thjeshta Me Më shume se  nje Relacion vvvvv------------ 
+------------8 Queryt E Dyta Te Thjeshta Me Më shume se  nje Relacion vvvvv*/ 
 
-----------------Shfaqni Emrat E Drejtoreve dhe Numrat e Telefonave te Tyre------------------ 
+/*Shfaqni Emrat E Drejtoreve dhe Numrat e Telefonave te Tyre*/  
 Select d.Emri, d.Mbimeri, t.Nr_Telefonit
 From DrejtoriEkzekutiv d  JOIN Telefoni t ON t.Id_Drejtori = d.ID_Drejtori;
 
-----------------Shfaqni Emrat E Fermerve qe nuk kane  numer te Telefonit te regjistruar------------------
+/*Shfaqni Emrat E Fermerve qe nuk kane  numer te Telefonit te regjistruar*/ 
 Select f.Emri, f.Mbimeri, tf.Nr_Telefonit
 From Fermeri f  LEFT JOIN TelefoniFermeri tf ON tf.Fermeri = f.Leternjoftimi
 Where tf.Nr_Telefonit is NULL
 
-----------------Shfaqni Pjestaret e Stafit Te cilet posedojne zyre me madhesi me te vogel se 90.5 m^2------------------
+/*Shfaqni Pjestaret e Stafit Te cilet posedojne zyre me madhesi me te vogel se 90.5 m^2*/ 
 Select st.ID_Puntori, st.Emri, st.Mbimeri, z.Nr_Dhomes, z.Madhesia
 From StafiPuntorve st JOIN Zyrja z ON z.Puntori = st.ID_Puntori
 Where z.Madhesia < 90.5;
-----------------Shfaqni Puntoret Qe kane mare pjese ne takimin me numer 10--------------
+
+/*Shfaqni Puntoret Qe kane mare pjese ne takimin me numer 10*/ 
 Select sp.Emri, sp.Mbimeri, t.Nr_Takimit, t.KohaTakimit
 From StafiPuntorve sp JOIN Takimi_Stafi ts ON sp.ID_Puntori = ts.Stafi JOIN Takimi t ON t.Nr_Takimit = ts.Takimi
 Where ts.Takimi = 10;
@@ -755,3 +768,123 @@ from Vetura v
 where v.DataServisimit In (Select v.DataServisimit
 from Vetura v
 where v.DataServisimit between '2018-05-30' and '2020-09-25' )
+
+------------8 Subquery te Avancuara------------
+/**/
+Drop View FermeriDheShpallja
+As
+(
+	Select shf.Shpallja, (f.Emri +' '+ f.Mbimeri) as [EmriFermerit]
+	From Shpallja_Fermeri shf JOIN Fermeri f ON shf.Fermeri = f.Leternjoftimi
+)
+
+Select *
+From FermeriDheShpallja;
+
+Select *
+From Menagjeri_Aktiviteti_Shpallja
+
+-----------Shfaq numrin e projektit, menaxheret dhe drejtoret qe menaxhojne projektet me buxhet me te madhe se mesatarja e pergjithshme e buxhetit
+Select p.Nr_Projektit, pmd.Menagjeri,pmd.Drejtori, sum(p.Buxheti) as 'Buxheti mbi mesatare'
+from Projekti p join Projekti_Menagjeri_Drejtori pmd on p.Nr_Projektit = pmd.Projekti
+group by p.Nr_Projektit,pmd.Menagjeri,pmd.Drejtori
+having sum(p.Buxheti)>
+					(Select avg (p.Buxheti)
+						from Projekti p)
+order by 'Buxheti mbi mesatare'
+
+-----------Queryt me Funksionet e AR-----------------
+
+/*Duke Perdorur Funksionet e AR te shfaqni takimet qe mbajtura ne oren 20 dhe oren 13*/
+(Select *
+From Takimi t
+Where t.KohaTakimit LIKE '20:%')
+UNION
+(Select *
+From Takimi t
+Where t.KohaTakimit LIKE '13:%')
+
+/*Duke Perdorur Funksionet e AR te shfaqni projektet te cilat kan filluar ne 2018 ose qe kan buxhet prej 2000 $*/
+(Select *
+From Projekti
+Where Buxheti = 2000)
+UNION
+(Select *
+From Projekti
+Where DataFillimit LIKE '2018%')
+
+/*Duke Perdorur Funksionet e AR te shfaqni puntoret me kulaifikim Bsc te lindue ne vitin 1997*/
+(Select *
+From StafiPuntorve
+Where Kualifikimi = 'BSc')
+INTERSECT
+(Select *
+From StafiPuntorve
+Where year(DateLindja) = 1997)
+
+/*Duke Perdorur Funksionet e AR te shfaqni Zyren me madhesi > 90 e cila i perket ndonje Drejtori*/
+(Select *
+From Zyrja z
+Where z.Madhesia > 90)
+EXCEPT
+(Select *
+From Zyrja z
+Where Puntori is not null)
+-----------Queryt me Funksionet e AR-----------------
+
+-----------Procedurat e Ruajtura---------------------
+/*SP per te shfaqur fermeret ne baz te numri te shpalljeve*/
+Create Proc spFermeriSipasNrShpalljeve
+	@nrShpalljeve int	
+AS
+Begin
+	Select f.Emri,f.Mbimeri , count(*) 'Numri I Shpalljeve'
+	From Shpallja_Fermeri shf JOIN Fermeri f ON shf.Fermeri = f.Leternjoftimi
+	Group By f.Emri,f.Mbimeri
+	Having count(*) = @nrShpalljeve;
+End
+
+Exec spFermeriSipasNrShpalljeve 3
+
+/*SP per te shfaqur madhsin e Selis ne Baz te numri indentifikues*/
+Create Proc spMadhisaSelis
+	@nr int,
+	@emri varchar(25) OUT,
+	@madhesia varchar(50) OUT
+AS
+Begin
+	Select  @emri = s.Emri, @madhesia = (Convert(varchar,SUM(z.Madhesia))+' m^2')
+	From Selia s JOIN Zyrja z ON s.Nr_Identifikues = z.Selia
+	Where s.Nr_Identifikues = @nr
+	Group By s.Nr_Identifikues, s.Emri
+End
+
+Declare @emri varchar(25), @madhesia varchar(50)
+Exec spMadhisaSelis 1, @emri out, @madhesia out
+PRINT 'Selia me emri ' + @emri + ' ka madhesi prej ' + @madhesia
+
+/*SP per te shfaqur Nese Ka fermer nga qytet te caktuara ose jo*/
+Create Proc spNumriFermereveSipasQyteteve
+	@qyteti varchar(255),
+	@nrFermerve int = null
+As
+Begin
+	Select @nrFermerve = count(*)
+	from Fermeri
+	where Qyteti like @qyteti;
+
+	if(@nrFermerve < 1)
+	Begin
+		PRINT 'Nga Qyteti ' + @qyteti + ' Nuk ka asnje fermer';
+	End
+	else
+	Begin
+		PRINT 'Nga Qyteti ' + @qyteti + ' Ka Fermer, numri fermereve ' + convert(varchar,@nrFermerve);
+	End
+End
+
+Exec spNumriFermereveSipasQyteteve 'Vushtrri'
+
+
+
+-----------Procedurat e Ruajtura---------------------
