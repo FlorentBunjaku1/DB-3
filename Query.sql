@@ -814,7 +814,12 @@ Where sp.ID_Puntori IN (
 							     From StafiPuntorve
 							     Group By year(DateLindja)))
 
-/**/
+/*Shfaqni Fermeret te cilet kane aplikuar ne ndonje shpallje ne qytetin e njejte ku jetojne*/
+Select *
+From Fermeri
+Where Leternjoftimi IN (Select f.Leternjoftimi
+						From Shpallja sh JOIN Shpallja_Fermeri shf ON sh.Numri_Shpalljes = shf.Shpallja JOIN Fermeri f ON f.Leternjoftimi = shf.Fermeri
+						Where f.Qyteti  LIKE sh.Vendi_Aplikimit)
 
 -----------Shfaq numrin e projektit, menaxheret dhe drejtoret qe menaxhojne projektet me buxhet me te madhe se mesatarja e pergjithshme e buxhetit
 Select p.Nr_Projektit, pmd.Menagjeri,pmd.Drejtori, sum(p.Buxheti) as 'Buxheti mbi mesatare'
