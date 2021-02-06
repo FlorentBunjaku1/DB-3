@@ -796,10 +796,12 @@ Select p.Nr_Projektit, p.DataFillimit, p.DataPerfundimit, NumriAktiviteteve = (S
 																			   Where a.Projekti = p.Nr_Projektit)
 From Projekti p
 
-/**/
-Select *
-From Takimi t
-
+/*Te shfaqen puntoret dhe numri i takimeve qe ata kane mare pjese*/
+Select sp.ID_Puntori, sp.Emri, sp.Mbimeri, nrTakimeve.[Numri Takimeve]
+From StafiPuntorve sp ,(Select ts.Stafi, count(*) as [Numri Takimeve]
+						From Takimi_Stafi ts 
+						Group By ts.Stafi) nrTakimeve
+Where sp.ID_Puntori = nrTakimeve.Stafi
 
 -----------Shfaq numrin e projektit, menaxheret dhe drejtoret qe menaxhojne projektet me buxhet me te madhe se mesatarja e pergjithshme e buxhetit
 Select p.Nr_Projektit, pmd.Menagjeri,pmd.Drejtori, sum(p.Buxheti) as 'Buxheti mbi mesatare'
@@ -990,3 +992,4 @@ Else
 			End
 end
 exec VitiProdhimit 2012
+
