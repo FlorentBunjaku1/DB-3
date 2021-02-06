@@ -814,6 +814,8 @@ Where sp.ID_Puntori IN (
 							     From StafiPuntorve
 							     Group By year(DateLindja)))
 
+/**/
+
 -----------Shfaq numrin e projektit, menaxheret dhe drejtoret qe menaxhojne projektet me buxhet me te madhe se mesatarja e pergjithshme e buxhetit
 Select p.Nr_Projektit, pmd.Menagjeri,pmd.Drejtori, sum(p.Buxheti) as 'Buxheti mbi mesatare'
 from Projekti p join Projekti_Menagjeri_Drejtori pmd on p.Nr_Projektit = pmd.Projekti
