@@ -770,19 +770,14 @@ from Vetura v
 where v.DataServisimit between '2018-05-30' and '2020-09-25' )
 
 ------------8 Subquery te Avancuara------------
-/**/
-Drop View FermeriDheShpallja
-As
-(
-	Select shf.Shpallja, (f.Emri +' '+ f.Mbimeri) as [EmriFermerit]
-	From Shpallja_Fermeri shf JOIN Fermeri f ON shf.Fermeri = f.Leternjoftimi
-)
+/*Te Shfaqni numrin e aktiviteteve per secilin nga projektet*/
+Select p.Nr_Projektit, p.DataFillimit, p.DataPerfundimit, NumriAktiviteteve = (Select count(*)
+																			   From Aktiviteti a
+																			   Where a.Projekti = p.Nr_Projektit)
+From Projekti p
 
-Select *
-From FermeriDheShpallja;
 
-Select *
-From Menagjeri_Aktiviteti_Shpallja
+
 
 -----------Shfaq numrin e projektit, menaxheret dhe drejtoret qe menaxhojne projektet me buxhet me te madhe se mesatarja e pergjithshme e buxhetit
 Select p.Nr_Projektit, pmd.Menagjeri,pmd.Drejtori, sum(p.Buxheti) as 'Buxheti mbi mesatare'
@@ -832,7 +827,9 @@ From Zyrja z
 Where Puntori is not null)
 -----------Queryt me Funksionet e AR-----------------
 
+
 -----------Procedurat e Ruajtura---------------------
+
 /*SP per te shfaqur fermeret ne baz te numri te shpalljeve*/
 Create Proc spFermeriSipasNrShpalljeve
 	@nrShpalljeve int	
