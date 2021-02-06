@@ -830,6 +830,36 @@ having sum(p.Buxheti)>
 						from Projekti p)
 order by 'Buxheti mbi mesatare'
 
+-----------Shfaq punonjesit qe kane pagen me te larte se paga mesatare ne organizate----------------
+
+Select sp.ID_Puntori,sp.Emri,sp.Kualifikimi, sum(sp.Paga) as 'Paga mesatare'
+from StafiPuntorve sp
+group by sp.ID_Puntori,sp.Emri,sp.Kualifikimi
+having sum(sp.Paga)>
+					(Select avg(sp.Paga)
+					from StafiPuntorve sp)
+
+
+-------------Shfaq detajet e punonjesve  te cilet kane lindur pas vitit 1997  dhe kane kualifikimin BSc  si dhe paga e tyre te jete
+---mes 1500 dhe 4000 euro
+Select sp.ID_Puntori,sp.Emri,sp.Mbimeri,sp.Kualifikimi,sp.DateLindja,sp.paga as [Paga],sp.Vetura
+from StafiPuntorve sp
+where sp.DateLindja In 
+					(Select sp.DateLindja
+					from StafiPuntorve sp
+										where sp.DateLindja > '1997' and sp.Kualifikimi='BSc'
+										and sp.paga between '1500' and '4000')
+
+
+
+-------------Shfaq detajet e punonjesve me page  me te vogel se mesatarja e pages se menaxhereve----------------------
+Select sp.Emri,sp.Mbimeri,sp.Kualifikimi, sum(sp.paga)
+from StafiPuntorve sp JOIN MenagjeriProjekteve mp on sp.ID_Puntori=mp.ID_Puntori
+group by sp.Emri,sp.Mbimeri,sp.Kualifikimi
+having sum(sp.paga)<
+					(Select avg(s.paga)
+					 from MenagjeriProjekteve mp JOIN StafiPuntorve s ON mp.ID_Puntori = s.ID_Puntori)
+
 -----------Queryt me Funksionet e AR-----------------
 
 /*Duke Perdorur Funksionet e AR te shfaqni takimet qe mbajtura ne oren 20 dhe oren 13*/
@@ -867,6 +897,43 @@ EXCEPT
 (Select *
 From Zyrja z
 Where z.Kategoria NOT LIKE 'Zyrja D%')
+
+-------------Duke Perdorur Funksionet e AR te shfaqni punetoret emri i te cileve fillon me A  dhe paga e tyre eshte mbi 2000 euro-----------
+(Select Emri,Mbimeri 
+from StafiPuntorve 
+where Emri like 'A%')
+Union 
+(Select Emri,Mbimeri 
+from StafiPuntorve
+where Paga>'2000')
+
+---------Duke Perdorur Funksionet e AR te shfaqni fermeret femra  nga qyteti i Vushtrris----------
+(Select Emri,Mbimeri,Gjinia,Qyteti
+from Fermeri
+where Gjinia like 'F')
+Union
+(Select Emri,Mbimeri,Gjinia,Qyteti
+from Fermeri
+where Qyteti='Vushtrri')
+
+-----------Duke Perdorur Funksionet e AR te shfaqni fermeret meshkuj me zipKodi 42000----------
+(Select Emri,Mbimeri,Gjinia,ZipKodi
+from Fermeri
+where ZipKodi='42000')
+EXCEPT
+(Select Emri,Mbimeri,Gjinia,ZipKodi
+from Fermeri
+where Gjinia='M')
+
+----------Duke Perdorur Funksionet e AR te shfaqni zyret me madhesi 90.5 ne seline 1-----------
+(Select *
+from Zyrja
+where Madhesia='90.5')
+INTERSECT
+(Select *
+from Zyrja
+where Selia='1')
+
 -----------Queryt me Funksionet e AR-----------------
 
 
