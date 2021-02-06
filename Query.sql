@@ -34,6 +34,7 @@ Create Table StafiPuntorve(
 	Mbimeri varchar(20) Not Null,
 	DateLindja Date,
 	Kualifikimi varchar(50),
+	Paga money default 1000,
 	Vetura int Foreign Key References Vetura(Nr_Targave) ON Update Cascade ON Delete Set Null,
 	Selia int Foreign Key References Selia(Nr_Identifikues),
 	Zyrja int Foreign Key References Zyrja(Nr_Dhomes) Unique
@@ -278,26 +279,26 @@ values('Zyrja D9','95.0','009')
 Insert into Zyrja(Kategoria,Madhesia,Selia)
 values('Zyrja D10','95.0','010')
 
-insert into StafiPuntorve values('10001','Albin','Islami','1998-04-22','BSc','01234','001','1')
-insert into StafiPuntorve values('10002','Visar','Mehmeti','1997-05-12','BSc','03567','001','2')
-insert into StafiPuntorve values('10003','Endrit','Mehmeti','1997-08-18','BSc','03343','001','3')
-insert into StafiPuntorve values('10004','Shpetim','Shyti','1997-09-23','BSc','04644','001','4')
-insert into StafiPuntorve values('10005','Kushtrim','Jashari','1996-04-06','BSc','02654','001','5')
-insert into StafiPuntorve values('10006','Agron','Bajrami','1997-08-28','BSc','03644','001','6')
-insert into StafiPuntorve values('10007','Burim','Hyseni','1996-03-09','BSc','01644','001','7')
-insert into StafiPuntorve values('10008','Blerim','Gashi','1995-04-07','BSc','08423','001','8')
-insert into StafiPuntorve values('10009','Leotrim','Smajli','1994-08-18','BSc','09634','001','9')
-insert into StafiPuntorve values('10010','Artan','Krasniqi','1993-06-16','BSc','07834','001','10')
-insert into StafiPuntorve values('10011','Naim','Salihu','1993-07-11','MSc','03343','001','11')
-insert into StafiPuntorve values('10012','Liridon','Beqiri','1996-03-15','MSc','01644','001','12')
-insert into StafiPuntorve values('10013','Blerta','Fazliu','1997-05-15','MSc','03644','001','13')
-insert into StafiPuntorve values('10014','Rexhep','Sahiti','1995-01-12','MSc','04644','001','14')
-insert into StafiPuntorve values('10015','Feride','Bislimi','1997-05-15','MSc','03567','001','15')
-insert into StafiPuntorve values('10016','Arlind','Hajdini','1996-11-11','MSc','02654','001','16')
-insert into StafiPuntorve values('10017','Enis','Ademaj','1996-11-11','MSc','01644','001','17')
-insert into StafiPuntorve values('10018','Ardit','Hajdari','1996-12-01','MSc','08423','001','18')
-insert into StafiPuntorve values('10019','Kaltrina','Ademi','1994-11-01','MSc','03343','001','19')
-insert into StafiPuntorve values('10020','Sevdije','Idrizi','1995-11-05','MSc','02654','001','20')
+insert into StafiPuntorve values('10001','Albin','Islami','1998-04-22','BSc','3500','01234','001','1')
+insert into StafiPuntorve values('10002','Visar','Mehmeti','1997-05-12','BSc','4300','03567','001','2')
+insert into StafiPuntorve values('10003','Endrit','Mehmeti','1997-08-18','BSc','2100','03343','001','3')
+insert into StafiPuntorve values('10004','Shpetim','Shyti','1997-09-23','BSc','20000','04644','001','4')
+insert into StafiPuntorve values('10005','Kushtrim','Jashari','1996-04-06','BSc','1500','02654','001','5')
+insert into StafiPuntorve values('10006','Agron','Bajrami','1997-08-28','BSc','30000','03644','001','6')
+insert into StafiPuntorve values('10007','Burim','Hyseni','1996-03-09','BSc','4500','01644','001','7')
+insert into StafiPuntorve values('10008','Blerim','Gashi','1995-04-07','BSc','2500','08423','001','8')
+insert into StafiPuntorve values('10009','Leotrim','Smajli','1994-08-18','BSc','1400','09634','001','9')
+insert into StafiPuntorve values('10010','Artan','Krasniqi','1993-06-16','BSc','1550','07834','001','10')
+insert into StafiPuntorve values('10011','Naim','Salihu','1993-07-11','MSc','1500','03343','001','11')
+insert into StafiPuntorve values('10012','Liridon','Beqiri','1996-03-15','MSc','1800','01644','001','12')
+insert into StafiPuntorve values('10013','Blerta','Fazliu','1997-05-15','MSc','1300','03644','001','13')
+insert into StafiPuntorve values('10014','Rexhep','Sahiti','1995-01-12','MSc','1200','04644','001','14')
+insert into StafiPuntorve values('10015','Feride','Bislimi','1997-05-15','MSc','1300','03567','001','15')
+insert into StafiPuntorve values('10016','Arlind','Hajdini','1996-11-11','MSc','1500','02654','001','16')
+insert into StafiPuntorve values('10017','Enis','Ademaj','1996-11-11','MSc','2000','01644','001','17')
+insert into StafiPuntorve values('10018','Ardit','Hajdari','1996-12-01','MSc','1900','08423','001','18')
+insert into StafiPuntorve values('10019','Kaltrina','Ademi','1994-11-01','MSc','1100','03343','001','19')
+insert into StafiPuntorve values('10020','Sevdije','Idrizi','1995-11-05','MSc','1600','02654','001','20')
 
 insert into DrejtoriEkzekutiv values('20100','Edmond','Hyseni','Mitrovice','Ardhmeria','40000','21','001')
 insert into DrejtoriEkzekutiv values('20200','ALbin','Zeka','Prishtine','7 Shtatori','42000','22','002')
@@ -803,6 +804,16 @@ From StafiPuntorve sp ,(Select ts.Stafi, count(*) as [Numri Takimeve]
 						Group By ts.Stafi) nrTakimeve
 Where sp.ID_Puntori = nrTakimeve.Stafi
 
+/*Shfaqni Punoret me rrugen me te madhe se koleget e trye me vitin e njejt te lindjes*/
+Select sp.Emri, sp.Mbimeri, sp.DateLindja, sp.Paga
+From StafiPuntorve sp
+Where sp.ID_Puntori IN (
+				Select  ID_Puntori
+				From StafiPuntorve
+				Where Paga =ANY (Select MAX(Paga)
+							     From StafiPuntorve
+							     Group By year(DateLindja)))
+
 -----------Shfaq numrin e projektit, menaxheret dhe drejtoret qe menaxhojne projektet me buxhet me te madhe se mesatarja e pergjithshme e buxhetit
 Select p.Nr_Projektit, pmd.Menagjeri,pmd.Drejtori, sum(p.Buxheti) as 'Buxheti mbi mesatare'
 from Projekti p join Projekti_Menagjeri_Drejtori pmd on p.Nr_Projektit = pmd.Projekti
@@ -914,6 +925,7 @@ AS
 	From Fermeri f  LEFT JOIN TelefoniFermeri tf ON tf.Fermeri = f.Leternjoftimi
 	Group By f.Leternjoftimi,f.emri,f.Mbimeri
 );
+
 Create Proc spNumratFermereve
 	@fid int ,
 	@nrTelit int = 0
