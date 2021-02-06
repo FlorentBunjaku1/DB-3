@@ -21,6 +21,12 @@ Create Table Vetura(
 	VitiProdhimit int,
 	Selia int Foreign Key References Selia(Nr_Identifikues) ON Update Cascade ON Delete Set Null
 );
+Create Table Zyrja(
+	Nr_Dhomes int Primary Key Identity(1,1),
+	Kategoria varchar(30) Not Null,
+	Madhesia Float Default 90.5 ,
+	Selia int Foreign Key References Selia(Nr_Identifikues) 
+);
 
 Create Table StafiPuntorve(
 	ID_Puntori int Primary Key,
@@ -29,16 +35,10 @@ Create Table StafiPuntorve(
 	DateLindja Date,
 	Kualifikimi varchar(50),
 	Vetura int Foreign Key References Vetura(Nr_Targave) ON Update Cascade ON Delete Set Null,
-	Selia int Foreign Key References Selia(Nr_Identifikues)
+	Selia int Foreign Key References Selia(Nr_Identifikues),
+	Zyrja int Foreign Key References Zyrja(Nr_Dhomes) Unique
 );
 
-Create Table Zyrja(
-	Nr_Dhomes int Primary Key Identity(1,1),
-	Kategoria varchar(30) Not Null,
-	Madhesia Float Default 90.5 ,
-	Puntori int Foreign Key References StafiPuntorve(ID_Puntori) ON Update Cascade ON Delete Set Null UNIQUE,
-	Selia int Foreign Key References Selia(Nr_Identifikues) 
-);
 
 Create Table DrejtoriEkzekutiv(
 	Id_Drejtori int Primary Key ,
@@ -216,80 +216,99 @@ insert into Vetura values('08423','BMV','5','2015-05-12','2011','001')
 insert into Vetura values('09634','Ford','4','2014-04-16','2010','001')
 insert into Vetura values('07834','Volvo','5','2018-05-30','2016','001')
 
-insert into StafiPuntorve values('10001','Albin','Islami','1998-04-22','BSc','01234','001')
-insert into StafiPuntorve values('10002','Visar','Mehmeti','1997-05-12','BSc','03567','001')
-insert into StafiPuntorve values('10003','Endrit','Mehmeti','1997-08-18','BSc','03343','001')
-insert into StafiPuntorve values('10004','Shpetim','Shyti','1997-09-23','BSc','04644','001')
-insert into StafiPuntorve values('10005','Kushtrim','Jashari','1996-04-06','BSc','02654','001')
-insert into StafiPuntorve values('10006','Agron','Bajrami','1997-08-28','BSc','03644','001')
-insert into StafiPuntorve values('10007','Burim','Hyseni','1996-03-09','BSc','01644','001')
-insert into StafiPuntorve values('10008','Blerim','Gashi','1995-04-07','BSc','08423','001')
-insert into StafiPuntorve values('10009','Leotrim','Smajli','1994-08-18','BSc','09634','001')
-insert into StafiPuntorve values('10010','Artan','Krasniqi','1993-06-16','BSc','07834','001')
-insert into StafiPuntorve values('10011','Naim','Salihu','1993-07-11','MSc','03343','001')
-insert into StafiPuntorve values('10012','Liridon','Beqiri','1996-03-15','MSc','01644','001')
-insert into StafiPuntorve values('10013','Blerta','Fazliu','1997-05-15','MSc','03644','001')
-insert into StafiPuntorve values('10014','Rexhep','Sahiti','1995-01-12','MSc','04644','001')
-insert into StafiPuntorve values('10015','Feride','Bislimi','1997-05-15','MSc','03567','001')
-insert into StafiPuntorve values('10016','Arlind','Hajdini','1996-11-11','MSc','02654','001')
-insert into StafiPuntorve values('10017','Enis','Ademaj','1996-11-11','MSc','01644','001')
-insert into StafiPuntorve values('10018','Ardit','Hajdari','1996-12-01','MSc','08423','001')
-insert into StafiPuntorve values('10019','Kaltrina','Ademi','1994-11-01','MSc','03343','001')
-insert into StafiPuntorve values('10020','Sevdije','Idrizi','1995-11-05','MSc','02654','001')
 
-Insert into Zyrja(Kategoria,Puntori,Selia)
-values ('Zyrja A','10001','001')
-Insert into Zyrja(Kategoria,Puntori,Selia)
-values('Zyrja B','10002','001')
-Insert into Zyrja(Kategoria,Madhesia,Puntori,Selia)
-values('Zyrja C','80.4','10003','001')
-Insert into Zyrja(Kategoria,Madhesia,Puntori,Selia)
-values('Zyrja AB','83.4','10004','001')
-Insert into Zyrja(Kategoria,Madhesia,Puntori,Selia)
-values('Zyrja DH','85.8','10005','001')
-Insert into Zyrja(Kategoria,Madhesia,Puntori,Selia)
-values('Zyrja LB','70.7','10006','001')
-Insert into Zyrja(Kategoria,Madhesia,Puntori,Selia)
-values('Zyrja G','87.4','10007','001')
-Insert into Zyrja(Kategoria,Madhesia,Puntori,Selia)
-values('Zyrja OT','89.3','10008','001')
-Insert into Zyrja(Kategoria,Madhesia,Puntori,Selia)
-values('Zyrja TR','60.6','10009','001')
-Insert into Zyrja(Kategoria,Madhesia,Puntori,Selia)
-values('Zyrja ET','88.6','10010','001')
-Insert into Zyrja(Kategoria,Puntori,Selia)
-values('Zyrja AT','10011','001')
-Insert into Zyrja(Kategoria,Puntori,Selia)
-values('Zyrja GT','10012','001')
-Insert into Zyrja(Kategoria,Puntori,Selia)
-values('Zyrja FF','10013','001')
-Insert into Zyrja(Kategoria,Puntori,Selia) 
-values('Zyrja FG','10014','001')
-Insert into Zyrja(Kategoria,Puntori,Selia) 
-values('Zyrja AG','10015','001')
-Insert into Zyrja(Kategoria,Puntori,Selia)
-values('Zyrja HG','10016','001')
-Insert into Zyrja(Kategoria,Puntori,Selia)
-values('Zyrja HH','10017','001')
-Insert into Zyrja(Kategoria,Puntori,Selia)
-values('Zyrja TF','10018','001')
-Insert into Zyrja(Kategoria,Puntori,Selia)
-values('Zyrja HF','10019','001')
-Insert into Zyrja(Kategoria,Puntori,Selia)
-values('Zyrja MF','10020','001')
+Insert into Zyrja(Kategoria,Selia)
+values ('Zyrja A','001')
+Insert into Zyrja(Kategoria,Selia)
+values('Zyrja B','001')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja C','80.4','001')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja AB','83.4','001')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja DH','85.8','001')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja LB','70.7','001')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja G','87.4','001')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja OT','89.3','001')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja TR','60.6','001')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja ET','88.6','001')
+Insert into Zyrja(Kategoria,Selia)
+values('Zyrja AT','001')
+Insert into Zyrja(Kategoria,Selia)
+values('Zyrja GT','001')
+Insert into Zyrja(Kategoria,Selia)
+values('Zyrja FF','001')
+Insert into Zyrja(Kategoria,Selia) 
+values('Zyrja FG','001')
+Insert into Zyrja(Kategoria,Selia) 
+values('Zyrja AG','001')
+Insert into Zyrja(Kategoria,Selia)
+values('Zyrja HG','001')
+Insert into Zyrja(Kategoria,Selia)
+values('Zyrja HH','001')
+Insert into Zyrja(Kategoria,Selia)
+values('Zyrja TF','001')
+Insert into Zyrja(Kategoria,Selia)
+values('Zyrja HF','001')
+Insert into Zyrja(Kategoria,Selia)
+values('Zyrja MF','001')
 Insert into Zyrja(Kategoria,Madhesia,Selia)
 values('Zyrja D1','95.0','001')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja D2','95.0','002')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja D3','95.0','003')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja D4','95.0','004')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja D5','90.0','005')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja D6','95.0','006')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja D7','95.0','007')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja D8','85.0','008')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja D9','95.0','009')
+Insert into Zyrja(Kategoria,Madhesia,Selia)
+values('Zyrja D10','95.0','010')
+
+insert into StafiPuntorve values('10001','Albin','Islami','1998-04-22','BSc','01234','001','1')
+insert into StafiPuntorve values('10002','Visar','Mehmeti','1997-05-12','BSc','03567','001','2')
+insert into StafiPuntorve values('10003','Endrit','Mehmeti','1997-08-18','BSc','03343','001','3')
+insert into StafiPuntorve values('10004','Shpetim','Shyti','1997-09-23','BSc','04644','001','4')
+insert into StafiPuntorve values('10005','Kushtrim','Jashari','1996-04-06','BSc','02654','001','5')
+insert into StafiPuntorve values('10006','Agron','Bajrami','1997-08-28','BSc','03644','001','6')
+insert into StafiPuntorve values('10007','Burim','Hyseni','1996-03-09','BSc','01644','001','7')
+insert into StafiPuntorve values('10008','Blerim','Gashi','1995-04-07','BSc','08423','001','8')
+insert into StafiPuntorve values('10009','Leotrim','Smajli','1994-08-18','BSc','09634','001','9')
+insert into StafiPuntorve values('10010','Artan','Krasniqi','1993-06-16','BSc','07834','001','10')
+insert into StafiPuntorve values('10011','Naim','Salihu','1993-07-11','MSc','03343','001','11')
+insert into StafiPuntorve values('10012','Liridon','Beqiri','1996-03-15','MSc','01644','001','12')
+insert into StafiPuntorve values('10013','Blerta','Fazliu','1997-05-15','MSc','03644','001','13')
+insert into StafiPuntorve values('10014','Rexhep','Sahiti','1995-01-12','MSc','04644','001','14')
+insert into StafiPuntorve values('10015','Feride','Bislimi','1997-05-15','MSc','03567','001','15')
+insert into StafiPuntorve values('10016','Arlind','Hajdini','1996-11-11','MSc','02654','001','16')
+insert into StafiPuntorve values('10017','Enis','Ademaj','1996-11-11','MSc','01644','001','17')
+insert into StafiPuntorve values('10018','Ardit','Hajdari','1996-12-01','MSc','08423','001','18')
+insert into StafiPuntorve values('10019','Kaltrina','Ademi','1994-11-01','MSc','03343','001','19')
+insert into StafiPuntorve values('10020','Sevdije','Idrizi','1995-11-05','MSc','02654','001','20')
 
 insert into DrejtoriEkzekutiv values('20100','Edmond','Hyseni','Mitrovice','Ardhmeria','40000','21','001')
-insert into DrejtoriEkzekutiv values('20200','ALbin','Zeka','Prishtine','7 Shtatori','42000','23','002')
-insert into DrejtoriEkzekutiv values('20300','Jeton','Krasniqi','Gjakove','1 Tetori','30000','24','003')
-insert into DrejtoriEkzekutiv values('20400','Arlinda','Gashi','Prizren','Sami Frasheri','22000','25','004')
-insert into DrejtoriEkzekutiv values('20500','Egzone','Berisha','Gjilan','Ali Kelmendi','29000','26','005')
-insert into DrejtoriEkzekutiv values('20600','Ekrem','Ibishi','Ferizaj','Ferhat Draga','50000','27','006')
-insert into DrejtoriEkzekutiv values('20700','Burim','Gjaka','Istog','Mustafe Shyti','46000','28','007')
-insert into DrejtoriEkzekutiv values('20800','Naser','Bajrami','Peje','Bahri Kuqi','23000','29','008')
-insert into DrejtoriEkzekutiv values('20900','Enver','Basholli','Lipijan','Atdheu','24000','30','009')
-insert into DrejtoriEkzekutiv values('21000','Agron','Gashi','Vushtrri','Deshmoret e Kombit','42000','31','010')
+insert into DrejtoriEkzekutiv values('20200','ALbin','Zeka','Prishtine','7 Shtatori','42000','22','002')
+insert into DrejtoriEkzekutiv values('20300','Jeton','Krasniqi','Gjakove','1 Tetori','30000','23','003')
+insert into DrejtoriEkzekutiv values('20400','Arlinda','Gashi','Prizren','Sami Frasheri','22000','24','004')
+insert into DrejtoriEkzekutiv values('20500','Egzone','Berisha','Gjilan','Ali Kelmendi','29000','25','005')
+insert into DrejtoriEkzekutiv values('20600','Ekrem','Ibishi','Ferizaj','Ferhat Draga','50000','26','006')
+insert into DrejtoriEkzekutiv values('20700','Burim','Gjaka','Istog','Mustafe Shyti','46000','27','007')
+insert into DrejtoriEkzekutiv values('20800','Naser','Bajrami','Peje','Bahri Kuqi','23000','28','008')
+insert into DrejtoriEkzekutiv values('20900','Enver','Basholli','Lipijan','Atdheu','24000','29','009')
+insert into DrejtoriEkzekutiv values('21000','Agron','Gashi','Vushtrri','Deshmoret e Kombit','42000','30','010')
 
 insert into Telefoni values('20100','044628833')
 insert into Telefoni values('20200','044628834')
@@ -465,7 +484,7 @@ Insert into Takimi_Stafi values('6','10006')
 Insert into Takimi_Stafi values('7','10007')
 Insert into Takimi_Stafi values('8','10008')
 Insert into Takimi_Stafi values('9','10009')
-Insert into Takimi_Stafi values('10','10010')
+Insert into Takimi_Stafi values('4','10010')
 Insert into Takimi_Stafi values('1','10011')
 Insert into Takimi_Stafi values('2','10012')
 Insert into Takimi_Stafi values('3','10013')
@@ -475,13 +494,13 @@ Insert into Takimi_Stafi values('6','10016')
 Insert into Takimi_Stafi values('7','10017')
 Insert into Takimi_Stafi values('8','10018')
 Insert into Takimi_Stafi values('9','10019')
-Insert into Takimi_Stafi values('10','10020')
-Insert into Takimi_Stafi values('5','10001')
+Insert into Takimi_Stafi values('6','10020')
+Insert into Takimi_Stafi values('9','10001')
 Insert into Takimi_Stafi values('6','10011')
 Insert into Takimi_Stafi values('7','10006')
 Insert into Takimi_Stafi values('8','10016')
 Insert into Takimi_Stafi values('9','10011')
-Insert into Takimi_Stafi values('10','10013')
+Insert into Takimi_Stafi values('7','10013')
 
 Insert Into Shpallja_Fermeri Values('51','1234567810','2021-09-28');
 Insert Into Shpallja_Fermeri Values('51','1234567830','2021-09-18');
@@ -616,13 +635,13 @@ Where tf.Nr_Telefonit is NULL
 
 /*Shfaqni Pjestaret e Stafit Te cilet posedojne zyre me madhesi me te vogel se 90.5 m^2*/ 
 Select st.ID_Puntori, st.Emri, st.Mbimeri, z.Nr_Dhomes, z.Madhesia
-From StafiPuntorve st JOIN Zyrja z ON z.Puntori = st.ID_Puntori
+From StafiPuntorve st JOIN Zyrja z ON z.Nr_Dhomes = st.Zyrja
 Where z.Madhesia < 90.5;
 
-/*Shfaqni Puntoret Qe kane mare pjese ne takimin me numer 10*/ 
+/*Shfaqni Puntoret Qe kane mare pjese ne takimin me numer 7*/ 
 Select sp.Emri, sp.Mbimeri, t.Nr_Takimit, t.KohaTakimit
 From StafiPuntorve sp JOIN Takimi_Stafi ts ON sp.ID_Puntori = ts.Stafi JOIN Takimi t ON t.Nr_Takimit = ts.Takimi
-Where ts.Takimi = 10;
+Where ts.Takimi = 7;
 
 -------Shfaqni trajnimet qe jane mbajtur ne datat 2021-06-01 dhe 2021-09-19------
 Select t.Emri,t.Vendi,o.Data
@@ -662,9 +681,10 @@ From Shpallja_Fermeri shf JOIN Fermeri f ON shf.Fermeri = f.Leternjoftimi
 Group By f.Emri,f.Mbimeri
 Having count(*) = 1
  
-/*Shfaqni madhesin totale te Selive duke u bazuar ne zyret dhe madhesit e trye*/
+/*Shfaqni madhesin totale te Selis1 duke u bazuar ne zyret dhe madhesit e trye*/
 Select s.Nr_Identifikues, s.Emri, Convert(varchar,SUM(z.Madhesia))+'m^2' AS 'Madhesia Totale'
 From Selia s JOIN Zyrja z ON s.Nr_Identifikues = z.Selia
+Where s.Nr_Identifikues = 1
 Group By s.Nr_Identifikues, s.Emri
 
 /*Shfaq Vizituesit dhe selit qe i kan vitiztuar per ata vizitues te cilet kane qendruar sa maksimumi i koheve te qendrimit neper seli*/
@@ -776,7 +796,9 @@ Select p.Nr_Projektit, p.DataFillimit, p.DataPerfundimit, NumriAktiviteteve = (S
 																			   Where a.Projekti = p.Nr_Projektit)
 From Projekti p
 
-
+/**/
+Select *
+From Takimi t
 
 
 -----------Shfaq numrin e projektit, menaxheret dhe drejtoret qe menaxhojne projektet me buxhet me te madhe se mesatarja e pergjithshme e buxhetit
@@ -824,7 +846,7 @@ Where z.Madhesia > 90)
 EXCEPT
 (Select *
 From Zyrja z
-Where Puntori is not null)
+Where z.Kategoria NOT LIKE 'Zyrja D%')
 -----------Queryt me Funksionet e AR-----------------
 
 
