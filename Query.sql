@@ -652,7 +652,7 @@ where o.Data like '2021-06-01' or o.Data like '2021-09-19'
 -----------Shfaqni Id,emrin,mbiemrin dhe kualifikimin e punetoreve qe punojn ne zyret A dhe OT-----------
  
 Select s.ID_Puntori,s.Emri,s.Mbimeri,s.Kualifikimi,z.Kategoria
-from StafiPuntorve s Join Zyrja z ON s.ID_Puntori = z.Puntori
+from StafiPuntorve s Join Zyrja z ON s.Zyrja = z.Nr_Dhomes
 where z.Kategoria like 'Zyrja A' or z.Kategoria like 'Zyrja OT'
 
 ----------Shfaqni emrin, mbiemrin ,kohen e ardhjes te vizitoreve ne seli ne qytetin e Vushtrrise----------
