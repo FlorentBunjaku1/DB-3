@@ -907,4 +907,67 @@ Begin
 End
 
 spNumratFermereve '1234567890';
------------Procedurat e Ruajtura---------------------
+
+----------Krijo nje store procedure qe shfaq punetoret sipas Kualifikimit----------
+Create proc PunetoretSipasKualifikimit
+@kualifikimi varchar(255)
+as 
+begin
+Select *
+from StafiPuntorve sp
+where sp.Kualifikimi like @kualifikimi
+
+end
+exec PunetoretSipasKualifikimit @kualifikimi = 'BSc'
+
+---------------Krijo nje store procedure qe shfaq fermeret sipas gjinise femerore-----------------
+Create proc FermeretSipasGjinis
+@fermeret char(1)
+as
+begin
+Select *
+from Fermeri f
+where f.Gjinia like @fermeret
+end
+exec FermeretSipasGjinis @fermeret='F'
+------SP qe shfaq nese buxheti i projekteve eshte mbi 4000 euro ose jo-----
+Create proc ProjektiSipasBuxhetitt
+@buxheti money
+as
+begin
+declare @buxhetii money;
+Select @buxhetii = (Select p.Buxheti
+from Projekti p
+where p.Buxheti=@buxheti)
+if @buxhetii > 4000
+			Begin 
+				print 'Buxheti per kete projekt eshte mbi 4000 euro'
+			End
+Else
+			Begin
+				print 'Buxheti per kete projekt eshte nen 4000 euro'
+			End
+end
+
+exec ProjektiSipasBuxhetitt 5000
+
+
+------------SP qe shfaq  nese viti i prodhimit te vetures eshte  nen vitin  2014 ose jo-----------
+Create proc VitiProdhimit
+@viti int
+as 
+begin
+declare @vitiP int;
+Select @vitiP = (Select v.VitiProdhimit
+from Vetura v
+where v.VitiProdhimit=@viti)
+if @vitiP < 2014
+			Begin
+				print 'Vetura eshte nen vitin 2014'
+			End
+Else
+			Begin
+				print 'Vetura eshte mbi vitin 2014'
+			End
+end
+exec VitiProdhimit 2012
