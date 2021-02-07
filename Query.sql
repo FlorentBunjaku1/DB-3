@@ -700,17 +700,17 @@ From Vizitori v, max_koha m, Selia s
 Where (v.Selia = s.Nr_Identifikues ) AND Datediff(day,v.KohaArdhjes,v.KohaShkuarjes) = m.max
 
 
-----------Selekto fermeret te cilet kane nga 2 numra te telefonit-----------
+----------Selekto fermeret te cilet kane nje  numer te telefonit-----------
 Select f.Leternjoftimi,f.Emri,f.Mbimeri, count(*)[Double nr.telefonit]
 from Fermeri f Join TelefoniFermeri tf On f.Leternjoftimi = tf.Fermeri
 group by f.Leternjoftimi,f.Emri,f.Mbimeri
-having count(*) = 2
+having count(*) = 1
 
------------Selekto menaxheret e projekteve qe menaxhojn me shume se 2 projekte------------
-Select mp.ID_Puntori,pmd.Projekti, count(*)[Menaxheret me >2 projekte]
+-----------Selekto menaxheret e projekteve qe menaxhojn 1 ose me shume projekte------------
+Select mp.ID_Puntori,pmd.Projekti, count(*)[Menaxheret me >=1 projekte]
 from MenagjeriProjekteve mp Join Projekti_Menagjeri_Drejtori pmd On mp.ID_Puntori= pmd.Menagjeri
 group by mp.ID_Puntori,pmd.Projekti
-having count(*) >2
+having count(*) >=1
 
 --------------Te shfaqen shpalljet ne qytetin e Prishtines qe menaxhohen nga menaxheri me ID 10003 dhe ka aktivitetin A03---------------
 Select s.Numri_Shpalljes,s.Vendi_Aplikimit,mas.Aktiviteti,mas.Menagjeri
