@@ -19,7 +19,7 @@ Create Table Vetura(
 	NumriUlseve smallint,
 	DataServisimit date,
 	VitiProdhimit int,
-	Selia int Foreign Key References Selia(Nr_Identifikues) ON Update Cascade ON Delete Set Null
+	Selia int Foreign Key References Selia(Nr_Identifikues)
 );
 Create Table Zyrja(
 	Nr_Dhomes int Primary Key Identity(1,1),
@@ -35,7 +35,7 @@ Create Table StafiPuntorve(
 	DateLindja Date,
 	Kualifikimi varchar(50),
 	Paga money default 1000,
-	Vetura int Foreign Key References Vetura(Nr_Targave) ON Update Cascade ON Delete Set Null,
+	Vetura int Foreign Key References Vetura(Nr_Targave),
 	Selia int Foreign Key References Selia(Nr_Identifikues),
 	Zyrja int Foreign Key References Zyrja(Nr_Dhomes) Unique
 );
@@ -48,14 +48,14 @@ Create Table DrejtoriEkzekutiv(
 	Qyteti varchar(25) Not Null,
 	Rruga varchar(50) Not Null,
 	ZipKodi int Not Null,
-	Zyrja int Foreign Key References Zyrja(Nr_Dhomes) ON Update Cascade ON Delete Set Null Unique,
+	Zyrja int Foreign Key References Zyrja(Nr_Dhomes),
 	Selia int Foreign Key References Selia(Nr_Identifikues) UNIQUE
 );
 
 Create Table Telefoni(
 	Id_Drejtori int,
 	Nr_Telefonit int,
-	Foreign Key (Id_Drejtori) References DrejtoriEkzekutiv(Id_Drejtori) ,
+	Foreign Key (Id_Drejtori) References DrejtoriEkzekutiv(Id_Drejtori) ON Delete Cascade ON Update Cascade ,
 	Primary Key (ID_Drejtori, Nr_Telefonit)
 );
 
@@ -116,7 +116,7 @@ Create Table Fermeri(
 Create Table TelefoniFermeri(
 	Fermeri int,
 	Nr_Telefonit int,
-	Foreign Key (Fermeri) References Fermeri(Leternjoftimi) ,
+	Foreign Key (Fermeri) References Fermeri(Leternjoftimi) On Delete Cascade On Update Cascade,
 	Primary Key (Fermeri, Nr_Telefonit)
 );
 
@@ -183,7 +183,7 @@ Create Table Orari(
 	ID_Trajnimi char(20),
 	Data date,
 	Primary Key(ID_Trajnimi,Data),
-	Foreign Key (ID_Trajnimi) References Trajnimi(ID_Trajnimi) 
+	Foreign Key (ID_Trajnimi) References Trajnimi(ID_Trajnimi) ON Delete Cascade ON Update Cascade 
 );
 
 Create Table Menagjeri_Aktiviteti_Shpallja(
@@ -572,6 +572,7 @@ set Buxheti = Buxheti/0.1
 Update StafiPuntorve
 set Kualifikimi = 'BSc'
 Where Kualifikimi = 'MSc'
+
 
 ------------8 Queryt E Para Te Thjeshta Me Nga Nje Relacion vvvvvv*/
 
