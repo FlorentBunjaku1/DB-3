@@ -35,7 +35,7 @@ Create Table StafiPuntorve(
 	DateLindja Date,
 	Kualifikimi varchar(50),
 	Paga money default 1000,
-	Vetura int Foreign Key References Vetura(Nr_Targave),
+	Vetura int Foreign Key References Vetura(Nr_Targave) ON Delete set null ON Update Cascade,
 	Selia int Foreign Key References Selia(Nr_Identifikues),
 	Zyrja int Foreign Key References Zyrja(Nr_Dhomes) Unique
 );
@@ -131,7 +131,7 @@ Create Table Shpallja_Fermeri(
 	KohaAplikimit date,
 	Primary Key (Shpallja, Fermeri),
 	Foreign Key (Shpallja) References Shpallja(Numri_Shpalljes),
-	Foreign Key (Fermeri) References Fermeri(Leternjoftimi)
+	CONSTRAINT Shpallja_Fermeri_f Foreign Key (Fermeri) References Fermeri(Leternjoftimi)
 );
 
 Create Table Menagjeri_Zyrtari_SHF(
@@ -573,9 +573,7 @@ Update StafiPuntorve
 set Kualifikimi = 'BSc'
 Where Kualifikimi = 'MSc'
 
-
 ------------8 Queryt E Para Te Thjeshta Me Nga Nje Relacion vvvvvv*/
-
 
 /*Selekto Trajnimet e Mbajtura Ne Rahovec Dhe  Ne Prishtine*/
 Select *
