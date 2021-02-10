@@ -125,6 +125,7 @@ Create Table Shpallja(
 	Vendi_Aplikimit varchar(50) NOT NULL
 );
 
+
 Create Table Shpallja_Fermeri(
 	Shpallja int,
 	Fermeri int,
@@ -175,12 +176,11 @@ Create Table Orari(
 	Primary Key(ID_Trajnimi,Data),
 	Foreign Key (ID_Trajnimi) References Trajnimi(ID_Trajnimi) ON Delete Cascade ON Update Cascade 
 );
-/*!!*/
 Create Table Menagjeri_Aktiviteti_Shpallja(
-	Aktiviteti char(20),
 	Shpallja int,
+	Aktiviteti char(20),
 	Menagjeri int Foreign Key References MenagjeriProjekteve(ID_Puntori),
-	Primary key (Aktiviteti, Shpallja),
+	Primary key (Shpallja),
 	Foreign Key(Shpallja) References Shpallja(Numri_Shpalljes),
 	Foreign Key(Aktiviteti) References Aktiviteti(ID_Aktiviteti)
 );
@@ -532,16 +532,17 @@ Insert into Projekti_Menagjeri_Drejtori values('107','10008','20800')
 Insert into Projekti_Menagjeri_Drejtori values('108','10009','20900')
 Insert into Projekti_Menagjeri_Drejtori values('109','10010','21000')
 
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A01','51','10001')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A02','52','10002')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A03','53','10003')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A04','54','10004')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A05','55','10005')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A06','56','10006')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A07','57','10007')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A08','58','10008')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A09','59','10009')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A10','60','10010')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('51','A01','10001')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('52','A02','10002')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('53','A03','10003')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('54','A04','10004')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('55','A05','10005')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('56','A06','10006')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('57','A07','10007')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('58','A08','10008')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('59','A09','10009')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('60','A10','10010')
+----------------------------------------------------------------------------------
 
 Delete Vetura 
 Where Selia = 001
@@ -555,6 +556,8 @@ Where Kualifikimi = 'MSc'
 
 Select *
 From ZyrtarProjekteve
+----------------------------------------------------------------------------------
+
 ------------8 Queryt E Para Te Thjeshta Me Nga Nje Relacion vvvvvv*/
 
 /*Selekto Trajnimet e Mbajtura Ne Rahovec Dhe  Ne Prishtine*/
@@ -1067,4 +1070,3 @@ Else
 			End
 end
 exec VitiProdhimit 2012
-
