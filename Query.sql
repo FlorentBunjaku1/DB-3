@@ -129,20 +129,10 @@ Create Table Shpallja_Fermeri(
 	Shpallja int,
 	Fermeri int,
 	KohaAplikimit date,
+	Perzgjedhesi int Default null Foreign Key References ZyrtarProjekteve(ID_Puntori),
 	Primary Key (Shpallja, Fermeri),
 	Foreign Key (Shpallja) References Shpallja(Numri_Shpalljes),
 	CONSTRAINT Shpallja_Fermeri_f Foreign Key (Fermeri) References Fermeri(Leternjoftimi)
-);
-
-Create Table Menagjeri_Zyrtari_SHF(
-	Zyrtari int Unique,
-	Menagjeri int Unique,
-	Primary Key (Zyrtari, Menagjeri),
-	Fermeri int ,
-	Shpallja int ,
-	Foreign Key (Fermeri,Shpallja) References Shpallja_Fermeri(Shpallja,Fermeri),
-	Foreign Key (Zyrtari) References ZyrtarProjekteve(ID_Puntori),
-	Foreign Key (Menagjeri) References MenagjeriProjekteve(ID_Puntori) 
 );
 
 Create Table Projekti(
@@ -185,13 +175,13 @@ Create Table Orari(
 	Primary Key(ID_Trajnimi,Data),
 	Foreign Key (ID_Trajnimi) References Trajnimi(ID_Trajnimi) ON Delete Cascade ON Update Cascade 
 );
-
+/*!!*/
 Create Table Menagjeri_Aktiviteti_Shpallja(
-	Aktiviteti char(20) Unique,
-	Menagjeri int Unique,
-	Shpallja int Foreign Key References Shpallja(Numri_Shpalljes),
-	Primary key (Aktiviteti, Menagjeri),
-	Foreign Key(Menagjeri) References MenagjeriProjekteve(ID_Puntori),
+	Aktiviteti char(20),
+	Shpallja int,
+	Menagjeri int Foreign Key References MenagjeriProjekteve(ID_Puntori),
+	Primary key (Aktiviteti, Shpallja),
+	Foreign Key(Shpallja) References Shpallja(Numri_Shpalljes),
 	Foreign Key(Aktiviteti) References Aktiviteti(ID_Aktiviteti)
 );
 
@@ -503,32 +493,33 @@ Insert into Takimi_Stafi values('8','10016')
 Insert into Takimi_Stafi values('9','10011')
 Insert into Takimi_Stafi values('7','10013')
 
-Insert Into Shpallja_Fermeri Values('51','1234567810','2021-09-28');
-Insert Into Shpallja_Fermeri Values('51','1234567830','2021-09-18');
-Insert Into Shpallja_Fermeri Values('51','1234567850','2021-09-08');
-Insert Into Shpallja_Fermeri Values('51','1234567900','2021-09-13');
-Insert Into Shpallja_Fermeri Values('51','1234567890','2021-08-25');
-Insert Into Shpallja_Fermeri Values('51','1234567880','2021-07-27');
-Insert Into Shpallja_Fermeri Values('52','1234567810','2021-06-24');
-Insert Into Shpallja_Fermeri Values('52','1234567900','2021-05-22');
-Insert Into Shpallja_Fermeri Values('52','1234567860','2021-04-21');
-Insert Into Shpallja_Fermeri Values('52','1234567870','2021-03-29');
-Insert Into Shpallja_Fermeri Values('53','1234567870','2021-02-20');
-Insert Into Shpallja_Fermeri Values('53','1234567810','2021-01-30');
-Insert Into Shpallja_Fermeri Values('53','1234567830','2021-01-26');
-Insert Into Shpallja_Fermeri Values('53','1234567850','2021-02-28');
-Insert Into Shpallja_Fermeri Values('53','1234567880','2021-04-27');
-Insert Into Shpallja_Fermeri Values('54','1234567880','2021-10-28');
-Insert Into Shpallja_Fermeri Values('54','1234567900','2021-08-29');
-Insert Into Shpallja_Fermeri Values('54','1234567820','2021-07-20');
-Insert Into Shpallja_Fermeri Values('54','1234567830','2021-06-21');
-Insert Into Shpallja_Fermeri Values('54','1234567840','2021-05-23');
-Insert Into Shpallja_Fermeri Values('55','1234567860','2021-12-26');
-Insert Into Shpallja_Fermeri Values('56','1234567850','2021-05-21');
-Insert Into Shpallja_Fermeri Values('57','1234567840','2021-12-18');
-Insert Into Shpallja_Fermeri Values('58','1234567900','2021-05-17');
-Insert Into Shpallja_Fermeri Values('59','1234567810','2021-04-19');
-Insert Into Shpallja_Fermeri Values('60','1234567820','2021-01-20');
+Insert Into Shpallja_Fermeri Values('51','1234567830','2021-09-28','10011');
+Insert Into Shpallja_Fermeri(Shpallja,Fermeri,KohaAplikimit) Values('52','1234567830','2021-09-18');
+Insert Into Shpallja_Fermeri(Shpallja,Fermeri,KohaAplikimit) Values('51','1234567850','2021-09-08');
+Insert Into Shpallja_Fermeri(Shpallja,Fermeri,KohaAplikimit) Values('51','1234567900','2021-09-13');
+Insert Into Shpallja_Fermeri(Shpallja,Fermeri,KohaAplikimit) Values('51','1234567890','2021-08-25');
+Insert Into Shpallja_Fermeri(Shpallja,Fermeri,KohaAplikimit) Values('51','1234567880','2021-07-27');
+Insert Into Shpallja_Fermeri Values('52','1234567810','2021-06-24','10012');
+Insert Into Shpallja_Fermeri(Shpallja,Fermeri,KohaAplikimit) Values('52','1234567900','2021-05-22');
+Insert Into Shpallja_Fermeri(Shpallja,Fermeri,KohaAplikimit) Values('52','1234567860','2021-04-21');
+Insert Into Shpallja_Fermeri(Shpallja,Fermeri,KohaAplikimit) Values('52','1234567870','2021-03-29');
+Insert Into Shpallja_Fermeri Values('53','1234567870','2021-02-20','10013');
+Insert Into Shpallja_Fermeri(Shpallja,Fermeri,KohaAplikimit) Values('53','1234567810','2021-01-30');
+Insert Into Shpallja_Fermeri(Shpallja,Fermeri,KohaAplikimit) Values('54','1234567810','2021-01-26');
+Insert Into Shpallja_Fermeri(Shpallja,Fermeri,KohaAplikimit) Values('53','1234567850','2021-02-28');
+Insert Into Shpallja_Fermeri(Shpallja,Fermeri,KohaAplikimit) Values('53','1234567880','2021-04-27');
+Insert Into Shpallja_Fermeri Values('54','1234567880','2021-10-28','10014');
+Insert Into Shpallja_Fermeri(Shpallja,Fermeri,KohaAplikimit) Values('54','1234567900','2021-08-29');
+Insert Into Shpallja_Fermeri(Shpallja,Fermeri,KohaAplikimit) Values('54','1234567820','2021-07-20');
+Insert Into Shpallja_Fermeri(Shpallja,Fermeri,KohaAplikimit) Values('54','1234567830','2021-06-21');
+Insert Into Shpallja_Fermeri(Shpallja,Fermeri,KohaAplikimit) Values('54','1234567840','2021-05-23');
+Insert Into Shpallja_Fermeri Values('55','1234567860','2021-12-26','10015');
+Insert Into Shpallja_Fermeri Values('56','1234567850','2021-05-21','10016');
+Insert Into Shpallja_Fermeri Values('57','1234567840','2021-12-18','10017');
+Insert Into Shpallja_Fermeri Values('58','1234567900','2021-05-17','10018');
+Insert Into Shpallja_Fermeri Values('59','1234567810','2021-04-19','10019');
+Insert Into Shpallja_Fermeri Values('60','1234567820','2021-01-20','10020');
+
 
 Insert into Projekti_Menagjeri_Drejtori values('100','10001','20100')
 Insert into Projekti_Menagjeri_Drejtori values('101','10002','20200')
@@ -541,27 +532,16 @@ Insert into Projekti_Menagjeri_Drejtori values('107','10008','20800')
 Insert into Projekti_Menagjeri_Drejtori values('108','10009','20900')
 Insert into Projekti_Menagjeri_Drejtori values('109','10010','21000')
 
-Insert Into Menagjeri_Zyrtari_SHF Values('10011','10001','51','1234567890')
-Insert Into Menagjeri_Zyrtari_SHF Values('10012','10002','52','1234567870')
-Insert Into Menagjeri_Zyrtari_SHF Values('10013','10003','53','1234567880')
-Insert Into Menagjeri_Zyrtari_SHF Values('10014','10004','54','1234567830')
-Insert Into Menagjeri_Zyrtari_SHF Values('10015','10005','55','1234567860')
-Insert Into Menagjeri_Zyrtari_SHF Values('10016','10006','56','1234567850')
-Insert Into Menagjeri_Zyrtari_SHF Values('10017','10007','57','1234567840')
-Insert Into Menagjeri_Zyrtari_SHF Values('10018','10008','58','1234567900')
-Insert Into Menagjeri_Zyrtari_SHF Values('10019','10009','59','1234567810')
-Insert Into Menagjeri_Zyrtari_SHF Values('10020','10010','60','1234567820')
-
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A01','10001','51')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A02','10002','52')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A03','10003','53')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A04','10004','54')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A05','10005','55')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A06','10006','56')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A07','10007','57')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A08','10008','58')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A09','10009','59')
-Insert Into Menagjeri_Aktiviteti_Shpallja Values('A10','10010','60')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A01','51','10001')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A02','52','10002')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A03','53','10003')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A04','54','10004')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A05','55','10005')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A06','56','10006')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A07','57','10007')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A08','58','10008')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A09','59','10009')
+Insert Into Menagjeri_Aktiviteti_Shpallja Values('A10','60','10010')
 
 Delete Vetura 
 Where Selia = 001
@@ -573,6 +553,8 @@ Update StafiPuntorve
 set Kualifikimi = 'BSc'
 Where Kualifikimi = 'MSc'
 
+Select *
+From ZyrtarProjekteve
 ------------8 Queryt E Para Te Thjeshta Me Nga Nje Relacion vvvvvv*/
 
 /*Selekto Trajnimet e Mbajtura Ne Rahovec Dhe  Ne Prishtine*/
@@ -623,6 +605,14 @@ where s.Kualifikimi like 'BSc'
 
 
 ------------8 Queryt E Dyta Te Thjeshta Me Më shume se  nje Relacion vvvvv*/ 
+/*Shfaqni te perzgjedhurit neper shpallje duke shfaqur ID e shpalljes, leternjoftimin e fermerit dhe emri mbiemrin e zyrtarit dhe menagjerit te tij qe kane ber ket perzgjedhie*/
+With shfz As
+(
+Select sh.Shpallja,sh.Fermeri,z.ID_Puntori,(sp.Emri + ' ' +sp.Mbimeri) as 'Emri Zyrtarit', z.Menagjeri
+From Shpallja_Fermeri sh JOIN ZyrtarProjekteve z ON sh.Perzgjedhesi = z.ID_Puntori JOIN StafiPuntorve sp ON sp.ID_Puntori = z.ID_Puntori
+)
+Select shfz.Shpallja,shfz.Fermeri, (f.Emri + ' ' +f.Mbimeri) 'Fermeri', shfz.ID_Puntori, shfz.[Emri Zyrtarit], shfz.Menagjeri, (s.Emri + ' ' + s.Mbimeri) 'Emri Menaxherit'
+From Fermeri f JOIN shfz ON f.Leternjoftimi = shfz.Fermeri JOIN MenagjeriProjekteve mp ON shfz.Menagjeri = mp.ID_Puntori JOIN StafiPuntorve s ON s.ID_Puntori = mp.ID_Puntori
 
 /*Shfaqni Emrat E Drejtoreve dhe Numrat e Telefonave te Tyre*/  
 Select d.Emri, d.Mbimeri, t.Nr_Telefonit
