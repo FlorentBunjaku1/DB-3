@@ -90,7 +90,8 @@ Create Table Takimi(
 	Nr_Takimit int Primary Key,
 	KohaTakimit time,
 	Salla int Foreign Key References SallaTakimeve(Nr_Salles),
-	Drejotri int Foreign Key References DrejtoriEkzekutiv(Id_Drejtori)
+	Drejotri int Foreign Key References DrejtoriEkzekutiv(Id_Drejtori),
+	Unique(Salla, KohaTakimit)
 );
 
 Create Table Takimi_Stafi(
@@ -145,10 +146,12 @@ Create Table Projekti(
 );
 
 Create Table Projekti_Menagjeri_Drejtori(
-	Projekti int Primary Key,
-	Menagjeri int Foreign Key References MenagjeriProjekteve(ID_Puntori),
+	Projekti int ,
+	Menagjeri int ,
+	Primary Key(Projekti, Menagjeri),
 	Drejtori int Foreign Key References DrejtoriEkzekutiv(Id_drejtori),
-	Foreign Key (Projekti) References Projekti(Nr_Projektit)
+	Foreign Key (Projekti) References Projekti(Nr_Projektit),
+	Foreign Key (Menagjeri) References MenagjeriProjekteve(ID_Puntori)
 );
 
 Create Table Aktiviteti(
@@ -179,8 +182,9 @@ Create Table Orari(
 Create Table Menagjeri_Aktiviteti_Shpallja(
 	Shpallja int,
 	Aktiviteti char(20),
-	Menagjeri int Foreign Key References MenagjeriProjekteve(ID_Puntori),
-	Primary key (Shpallja),
+	Menagjeri int,
+	Primary key (Shpallja, Aktiviteti),
+	Foreign Key (Menagjeri)References MenagjeriProjekteve(ID_Puntori),
 	Foreign Key(Shpallja) References Shpallja(Numri_Shpalljes),
 	Foreign Key(Aktiviteti) References Aktiviteti(ID_Aktiviteti)
 );
@@ -559,7 +563,6 @@ From ZyrtarProjekteve
 ----------------------------------------------------------------------------------
 
 ------------8 Queryt E Para Te Thjeshta Me Nga Nje Relacion vvvvvv*/
-
 /*Selekto Trajnimet e Mbajtura Ne Rahovec Dhe  Ne Prishtine*/
 Select *
 From Trajnimi t
@@ -608,6 +611,7 @@ where s.Kualifikimi like 'BSc'
 
 
 ------------8 Queryt E Dyta Te Thjeshta Me Më shume se  nje Relacion vvvvv*/ 
+
 /*Shfaqni te perzgjedhurit neper shpallje duke shfaqur ID e shpalljes, leternjoftimin e fermerit dhe emri mbiemrin e zyrtarit dhe menagjerit te tij qe kane ber ket perzgjedhie*/
 With shfz As
 (
@@ -671,7 +675,7 @@ Group By sh.Numri_Shpalljes, sh.Vendi_Aplikimit
 /*Te Shfaqen Fermeret qe kan aplikuar ne vetem nje shpallje*/
 Select f.Emri,f.Mbimeri , count(*) 'Numri I Shpalljeve'
 From Shpallja_Fermeri shf JOIN Fermeri f ON shf.Fermeri = f.Leternjoftimi
-Group By f.Emri,f.Mbimeri
+Group By f.Leternjoftimi,f.Emri,f.Mbimeri
 Having count(*) = 1
  
 /*Shfaqni madhesin totale te Selis1 duke u bazuar ne zyret dhe madhesit e trye*/
@@ -680,16 +684,16 @@ From Selia s JOIN Zyrja z ON s.Nr_Identifikues = z.Selia
 Where s.Nr_Identifikues = 1
 Group By s.Nr_Identifikues, s.Emri
 
-/*Shfaq Vizituesit dhe selit qe i kan vitiztuar per ata vizitues te cilet kane qendruar sa maksimumi i koheve te qendrimit neper seli*/
+/*Shfaq Vizituesit dhe selit qe i kan vitiztuar per ate vizitues i cili ka qendruar me shume se mesatarja e koheve te qendrimit neper seli*/
 WITH max_koha 
 As
 (
-	Select MAX(Datediff(day,v.KohaArdhjes,v.KohaShkuarjes) )AS [max]
+	Select AVG(Datediff(day,v.KohaArdhjes,v.KohaShkuarjes) )AS [max]
 	From Vizitori v
 )
 Select (v.Emri +  ' ' + v.Mbimeri) as [Emri i Vizitorit],s.Emri as [Emri i Selise],Datediff(day,v.KohaArdhjes,v.KohaShkuarjes) as [Koha_e_Qendrimit]
 From Vizitori v, max_koha m, Selia s
-Where (v.Selia = s.Nr_Identifikues ) AND Datediff(day,v.KohaArdhjes,v.KohaShkuarjes) = m.max
+Where (v.Selia = s.Nr_Identifikues ) AND Datediff(day,v.KohaArdhjes,v.KohaShkuarjes) > m.max
 
 
 ----------Selekto fermeret te cilet kane nje  numer te telefonit-----------
@@ -719,6 +723,14 @@ order by v.VitiProdhimit asc
 
 
 ------------8 Subquery te thjeshjta------------
+
+/*Shfaqni Ata fermer te cilet kane aplikuar ne shpallje por nuk jane perzgjedhur*/
+Select *
+From Fermeri f 
+Where f.Leternjoftimi NOT IN (Select f.Leternjoftimi
+								From Shpallja_Fermeri shf JOIN Fermeri f ON shf.Fermeri = f.Leternjoftimi
+								Where shf.Perzgjedhesi IS NOT NULL)
+
 /*Shfaq te takimet ne te cilat nuk eshte ardhur asnje puntor */
 Select *
 From Takimi t
@@ -726,11 +738,12 @@ Where t.Nr_Takimit NOT IN (
 							Select ts.Takimi
 							From Takimi_Stafi ts
 							)
+
 /*Shfaq Vizitorin i cili ka vizituar i fundit ndonje seli*/
 Select *
 From Vizitori v
 Where v.KohaArdhjes = (Select MAX(KohaArdhjes)
-						 From Vizitori);
+					   From Vizitori);
 
 /*Te shfaqen Puntoret qe kane marre pjes ne me shume se nje takim*/
 Select *
@@ -799,12 +812,11 @@ Where sp.ID_Puntori = nrTakimeve.Stafi
 /*Shfaqni Punoret me rrugen me te madhe se koleget e trye me vitin e njejt te lindjes*/
 Select sp.Emri, sp.Mbimeri, sp.DateLindja, sp.Paga
 From StafiPuntorve sp
-Where sp.ID_Puntori IN (
-				Select  ID_Puntori
-				From StafiPuntorve
-				Where Paga =ANY (Select MAX(Paga)
-							     From StafiPuntorve
-							     Group By year(DateLindja)))
+Where sp.ID_Puntori IN (Select  ID_Puntori
+						From StafiPuntorve
+						Where Paga =ANY (Select MAX(Paga)
+										 From StafiPuntorve
+										 Group By year(DateLindja)))
 
 /*Shfaqni Fermeret te cilet kane aplikuar ne ndonje shpallje ne qytetin e njejte ku jetojne*/
 Select *
@@ -997,10 +1009,10 @@ Create Proc spNumratFermereve
 	@nrTelit int = 0
 As
 Begin
-	Select DISTINCT nf.emri, nf.Mbimeri, Nr=(CASE nf.Numrat
-											   WHEN 0 THEN 'Fermeri nuk ka asnje numer telefoni'
-											   WHEN 1 THEN 'Fermeri ka nje numer te telefonit'
-											   ELSE 'Fermeri ka me shume se nje numer te telefonit' END)
+	Select nf.emri, nf.Mbimeri, Nr=(CASE nf.Numrat
+									WHEN 0 THEN 'Fermeri nuk ka asnje numer telefoni'
+									WHEN 1 THEN 'Fermeri ka nje numer te telefonit'
+								    ELSE 'Fermeri ka me shume se nje numer te telefonit' END)
 	From numratTelefonaveFermerve nf
 	Where  nf.Leternjoftimi = @fid
 End
